@@ -38,3 +38,4 @@ The `seir-dashboard` metric readings tell us the following about our `t3.small` 
 *   **What became easier:** Navigating the AWS console to grab the public IP and instantly initializing the EC2 Instance Connect web client became mechanical and effortless by the third repetition.
 *   **Errors encountered and resolved:** I noticed that stopping and restarting the instance changes the public IPv4 address but keeps the same instance hardware configuration. I ensured that each unique public IP address environment was meticulously tracked, snapshotted, and fully cleaned up afterward.
 *   **Template & Cleanup Confirmation:** I confirm that I have safely 
+ preserved the core launch template and fully terminated all three test EC2 instances to avoid unexpected AWS charges.

@@ -1,0 +1,49 @@
+Lesson 1 Runbook AI Review
+Student: Jason Cook
+Date: 2026-11-03
+
+This is a concise transcript summary of my real conversation with the AI. The answers below are in my own words. I used the runbook and my lab screenshots to check the answers.
+
+Question 1: What does return code 4 mean, and how can I verify it?
+
+AI answer, in my own words: Return code 4 means the account lookup did not find the requested account. Run the lookup for an account that is not in the ledger, then run `echo $?` immediately to see the program's return code.
+
+My answer: Return code 4 is a warning that the account was not found. I ran `./cobol/bin/account_lookup 999999`; it printed `ERROR=ACCOUNT NOT FOUND`, and the return code was 4.
+
+How I checked it: I compared the result with the return-code table in the runbook and checked `screenshots/cobol_core_practice/cobol_rc4.jpg`. The screenshot shows the lookup command, the not-found message, and `4`.
+
+Question 2: What does return code 8 mean for a zero-amount payment?
+
+AI answer, in my own words: Return code 8 is a business rejection. A zero-amount payment is rejected because the amount must be greater than zero.
+
+My answer: I ran `./cobol/bin/payment_post TXN0008 100001 0.00 USD INV-1008`. The payment was rejected with reason `AMOUNT MUST BE GREATER THAN ZERO`, and the code was 8.
+
+How I checked it: I checked `screenshots/cobol_core_practice/cobol_rc8.jpg`. It shows the command, rejection reason, `echo $?`, and output `8`. I initially thought I had not run `echo $?`, but looking carefully at my screenshot corrected my memory.
+
+Question 3: Which repository should I clone for the Git task?
+
+AI answer, in my own words: The separate homework direction said to clone my own homework repository, while the Lesson 1 runbook says to clone `BalericaAI/SEIR-Foundations`. Those directions do not match, so I should follow the specific homework instruction and ask my instructor if unsure.
+
+My answer: I cloned my homework repository, `seir-foundations_wookiee`, then changed into it and listed its `module1` folder.
+
+How I checked it: My `screenshots/git_clone.jpg` shows the clone URL, successful clone output, and the `module1` listing.
+
+Question 4: How would I check whether the API docs are reachable from my laptop?
+
+AI answer, in my own words: A local request to `127.0.0.1` only checks the service from inside the EC2 instance. To test access from my laptop, open `http://YOUR-EC2-IP:8000/docs` in the browser. If it does not load, check that the instance's security group allows inbound TCP port 8000 from my IP.
+
+My answer: I would enter the instance's public IP with port 8000 and `/docs` in a browser. If it fails, I would check the security-group port rule.
+
+How I checked it: I checked `screenshots/run7/lab1_run7_swagger.jpg`. It shows the API docs loaded in a browser at the instance's public DNS on port 8000.
+
+Question 5: How can I decode the fixed-width payment ledger using `cut -c`?
+
+AI answer, in my own words: `cut -c` prints specific character positions from each ledger row. The columns are transaction ID 1-20, account ID 21-26, amount 27-38, currency 39-41, status 42-49, and reference 50-65. The amount has two implied decimal places.
+
+My answer: I used the six column ranges with `cut -c` to separate one payment record. The first record showed transaction `TXN0001`, account `100001`, stored amount `000000012550`, currency `USD`, status `POSTED`, and reference `INV-1001`. The amount means 125.50.
+
+How I checked it: I checked `screenshots/cobol_core_practice/cobol_ledger_decode.jpg`, which shows the `cut -c` commands and each output. I compared the field positions with the payment record layout in the runbook.
+
+Where the AI's guidance was incomplete:
+
+The AI first told me to clone my homework repository based on the separate assignment direction. The runbook itself says to clone the official Balerica course repository. The AI should have called out the conflict before giving the clone command. I followed the homework-specific instruction and verified the cloned repository and `module1` listing in my screenshot. If I am unsure which instruction takes priority, I should ask my instructor.

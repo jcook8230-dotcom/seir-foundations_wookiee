@@ -55,6 +55,19 @@ python3 swift/traffic_generator.py --count 10
 - On the first run, my connection failed because I used incorrect connection details. I learned to check the instance and login information carefully and to read terminal messages before retrying.
 - I learned to capture the required screenshots as I work and to leave enough time to complete and verify each part instead of rushing.
 
+## COBOL practice
+
+I practiced the COBOL bank programs in `/opt/balerica-bank` and checked their return codes with `echo $?`:
+
+- **Return code 0:** A successful lookup of account `100001`.
+- **Return code 4:** Looking up account `999999` returned `ACCOUNT NOT FOUND`.
+- **Return code 8:** A zero-amount payment was rejected as a business-rule failure.
+- **Return code 12:** Running the account lookup from `/tmp` caused the program to report that it could not open `data/accounts.dat` (file status `35`), demonstrating an environment/path failure.
+
+I also decoded the fixed-width payment ledger with `cut -c`. Each record contains a 20-character transaction ID (columns 1–20), 6-character account ID (21–26), 12-character amount (27–38), 3-character currency (39–41), 8-character status (42–49), and 16-character reference (50–65). The amount is stored with two implied decimal places; for example, `000000012550` represents `125.50`.
+
+Evidence is saved in [screenshots/cobol_core_practice](screenshots/cobol_core_practice/): [cobol_rc0.jpg](screenshots/cobol_core_practice/cobol_rc0.jpg), [cobol_rc4.jpg](screenshots/cobol_core_practice/cobol_rc4.jpg), [cobol_rc8.jpg](screenshots/cobol_core_practice/cobol_rc8.jpg), [cobol_rc12.jpg](screenshots/cobol_core_practice/cobol_rc12.jpg), and [cobol_ledger_decode.jpg](screenshots/cobol_core_practice/cobol_ledger_decode.jpg).
+
 ## Spotter reflection
 
 **Spotter:** Terelle

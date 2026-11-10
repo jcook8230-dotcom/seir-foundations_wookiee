@@ -23,7 +23,9 @@ I ran seven Python scripts from my EC2 instance. Each one sent an alert to `#bal
 ## My notes
 
 ### hw2: Which severities arrived, and why those?
-I ran hw2_severity_tour.py, and it delivered four alerts to #balerica-alerts: INFO, WARNING, ERROR and CRITICAL. I took a screenshot of each one and noticed the severity went up in order, from INFO to WARNING to ERROR to CRITICAL. All four arrived because the script was built to show the alert messages, not to check for a real problem. Nothing on the server was actually wrong; the script sent each severity on purpose so I could see what each severity level looks like.
+I ran `hw2_severity_tour.py`, and it delivered four alerts to `#balerica-alerts`: INFO, WARNING, ERROR and CRITICAL. I took a screenshot of each one and noticed the severity went up in order, from INFO to WARNING to ERROR to CRITICAL. The script was built to show the alert messages, not to check for a real problem. Nothing on the server was actually wrong; the script sent each severity on purpose so I could see what each severity level looks like.
+
+All four arrived because I set `SLACK_ALERT_SEVERITY=INFO` in my `.env`. `slack.py` only sends alerts at or above that level, and INFO is the lowest, so nothing was blocked. If I hadn't set it, the default would be ERROR, and only ERROR and CRITICAL would have arrived.
 
 ### hw3: How many hours apart are server time and my wall clock?
 The server's date and time was Monday 11/9/26 at 4:10 AM UTC. My local date and time was Sunday 11/8/26 at about 10:10 PM CST. The server was 6 hours ahead of me, and we were on different dates. This could cause confusion because the message looks like it refers to early Monday morning, while for me it was still late Sunday night. To avoid this, alerts should always label the time zone (like "UTC"), and the team should agree to use one time zone so nobody has to guess.

@@ -29,13 +29,22 @@ I ran hw2_severity_tour.py, and it delivered four alerts to #balerica-alerts: IN
 The server's date and time was Monday 11/9/26 at 4:10 AM UTC. My local date and time was Sunday 11/8/26 at about 10:10 PM CST. The server was 6 hours ahead of me, and we were on different dates. This could cause confusion because the message looks like it refers to early Monday morning, while for me it was still late Sunday night. To avoid this, alerts should always label the time zone (like "UTC"), and the team should agree to use one time zone so nobody has to guess.
 
 ### hw4: Why is a quiet INFO here good design, not a failure?
-TODO: my answer
+The disk script measured the disk at 25.4% used and chose INFO, meaning everything is fine. If the script sent CRITICAL every time it ran, even when the disk was healthy, the team would learn to ignore the messages over time. When a real emergency happens, the CRITICAL alert would be ignored like all the false alarms, and the disk could fill up completely, stopping the bank from saving new transactions. If the disk had been 90% full, the script would have sent a higher severity, like WARNING or CRITICAL. An INFO message lets you know the disk space is good, while a CRITICAL message means the disk space is running dangerously low.
 
 ### hw5: What would make this number spike on the Balerica bank?
-TODO: my answer
+Load measures how busy the server's CPUs are. It's like tellers at a bank: my load was 0.00, meaning no customers were in line and the tellers were idle. The terminal shows the average load over the last 1, 5 and 15 minutes. The number could spike if there was a sudden jump in customer traffic. Certain days of the month, like payday, and busy hours of the day can cause changes in load. Nightly jobs, like the ledger backup, can also push the load up. A broken program or a disaster could also make the load jump. A sudden spike should be investigated, not ignored, because it could mean a real problem.
 
 ### hw6: Which of these fake incidents deserves to wake a human at 3 AM?
-TODO: my answer
+Two of the six fake incidents need to wake someone right away, and two more need someone only if they get worse:
+
+1. **COBOL batch job running slow (WARNING):** Morning. The job is slow but still running.
+2. **Payments being rejected (ERROR):** Wake. Too many customer payments are being rejected.
+3. **Payments website crashed twice (ERROR):** Wake only if it keeps happening for 5–10 minutes. Two errors could be a short blip.
+4. **International transfers piling up (WARNING):** Wake only if the line keeps growing, for example to 500 messages. Nothing has failed yet.
+5. **Ledger not reachable (CRITICAL):** Wake. No one can see their money, so it must be fixed for the bank to keep doing business.
+6. **Nightly backup completed (INFO):** None. The backup worked, so everything is good with the nightly ledger.
+
+Waking someone only when it really matters keeps the team from ignoring alerts, like I explained in hw4.
 
 ### Problems I ran into
 - **Terminal freezing:** My EC2 terminal froze several times during the homework, so I had to reconnect to my instance more than once.
